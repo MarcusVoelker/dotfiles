@@ -1,0 +1,2 @@
+cd ../.yWriter5/bin
+mono ./yWriter5.exe

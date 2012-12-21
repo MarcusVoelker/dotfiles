@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/var/lib/layman/haskell/dev-haskell/download-curl'
+let g:netrw_dirhist_2='/home/nethshady/Programming/SPAG/Venture/src/LevelGenerator'
+let g:netrw_dirhist_3='/home/nethshady/Programming/SPAG/Venture/src/LevelGenerator/Subdividers'
+let g:netrw_dirhist_4='/home/nethshady/Programming/Omicron/Genesis/Miniprojects/project-template'
+let g:netrw_dirhist_5='/home/nethshady/Programming/SPAG/Venture/src/LevelGenerator/AreaGenerator/MonsterGenerators'
+let g:netrw_dirhist_6='/home/nethshady/Programming/SPAG/Venture/src'

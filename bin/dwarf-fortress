@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /home/nethshady/Games/df_linux
+./df
