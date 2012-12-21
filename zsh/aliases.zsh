@@ -1,1 +1,7 @@
 alias reload!='. ~/.zshrc'
+alias -r single='sudo ~/singlize'
+alias -r dual='sudo ~/dualize'
+alias -r wmount='sudo mount /dev/sda3 /mnt/windows'
+alias -r pmount='sudo mount /dev/sdc /mnt/usb'
+alias -r wedit='vim ~/.vimrc'
+alias -r zedit='vim ~/.zshrc.local'

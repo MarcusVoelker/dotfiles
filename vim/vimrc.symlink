@@ -1,85 +1,147 @@
-set noswapfile
+" Vim Modus statt Vi Modus verwenden
+set nocompatible
 
-" ----------------------------------------------------------------------------
-"  Text Formatting
-" ----------------------------------------------------------------------------
+" Use pathogen
+call pathogen#infect()
 
-set autoindent             " automatic indent new lines
-set smartindent            " be smart about it
-inoremap # X<BS>#
-set nowrap                 " do not wrap lines
-set softtabstop=2          " yep, two
-set shiftwidth=2           " ..
-set tabstop=4
-set expandtab              " expand tabs to spaces
-set nosmarttab             " fuck tabs
-set formatoptions+=n       " support for numbered/bullet lists
-"set textwidth=80           " wrap at 80 chars by default
-set virtualedit=block      " allow virtual edit in visual block ..
+" Backspace im Einfüge-Modus erlauben
+set backspace=indent,eol,start
 
-" ----------------------------------------------------------------------------
-"  Remapping
-" ----------------------------------------------------------------------------
+" Erkennung des Dateityps aktivieren
+filetype plugin on
 
-" lead with ,
-let mapleader = ","
+" Indenting anhand des Dateityps aktivieren
+filetype indent on
 
-" exit to normal mode with 'jj'
-inoremap jj <ESC>
+" Automatically reload files
+set autoread
 
+" Switch from unsaved buffers
+set hidden
 
-" reflow paragraph with Q in normal and visual mode
-nnoremap Q gqap
-vnoremap Q gq
+" automatisches Indenting aktivieren
+set ai
 
-" sane movement with wrap turned on
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
+" Smart Indenting aktivieren
+set si
 
-" ----------------------------------------------------------------------------
-"  UI
-" ----------------------------------------------------------------------------
-
-set ruler                  " show the cursor position all the time
-set noshowcmd              " don't display incomplete commands
-set nolazyredraw           " turn off lazy redraw
-set number                 " line numbers
-set wildmenu               " turn on wild menu
+" Better command line completion
+set wildmenu
 set wildmode=list:longest,full
-set ch=2                   " command line height
-set backspace=2            " allow backspacing over everything in insert mode
-set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
-set shortmess=filtIoOA     " shorten messages
-set report=0               " tell us about changes
-set nostartofline          " don't jump to the start of line when scrolling
 
 
-" ----------------------------------------------------------------------------
-" Visual Cues
-" ----------------------------------------------------------------------------
 
-set showmatch              " brackets/braces that is
-set mat=5                  " duration to show matching brace (1/10 sec)
-set incsearch              " do incremental searching
-set laststatus=2           " always show the status line
-set ignorecase             " ignore case when searching
-set nohlsearch             " don't highlight searches
-set visualbell             " shut the fuck up
+" Backup Files in ~/.vim/backups erstellen und Dateiendung .bak anfügen
+set backup
+set backupdir=~/.backups
+set backupext=.bak
 
+" History des Kommandozeilen-Eingaben auf die letzten 1000 beschränken
+set history=1000
 
-" ---------------------------------------------------------------------------
-"  Strip all trailing whitespace in file
-" ---------------------------------------------------------------------------
+" Position des Cursors in der Statusleiste anzeigen und aktuelle Zeile einfärben
+set ruler
+set cursorline
 
-function! StripWhitespace ()
-    exec ':%s/ \+$//gc'
-endfunction
-map ,s :call StripWhitespace ()<CR>
+" Zeilennummern anzeigen
+set nu
+
+" öffnende und schließende Klammern hervorheben
+set showmatch 
+
+" Kommandos beim Eintippen rechts unten in der Statuszeile anzeigen
+set showcmd
+
+" inkrementelle Suche aktivieren, Groß-/Kleinschreibung bei der Suche
+" ignorieren und Suchergebnisse einfärben
+set incsearch
+set ic
+set smartcase
+set hlsearch
+
+set nostartofline
+
+" Always keep some line before and after the cursor visible
+set scrolloff=7
+set sidescrolloff=7
+
+set laststatus=2
+set confirm
+set cmdheight=2
+set notimeout ttimeout ttimeoutlen=200
+
+set list
+set listchars=tab:>-,trail:-
+set wrap
+
+" disable arrow keys
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Leader stuff
+
+let mapleader=","
+noremap <leader>tn :tabnew<cr>
+noremap <leader>to :tabonly<cr>
+noremap <leader>tc :tabclose<cr>
+noremap <leader>tm :tabmove
+noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+noremap <leader>br <leader>bb<leader>rr
+
+" Syntax highlighting aktivieren
+syntax on
+
+" automatische Einrückung bei Autoident und Tab-Breite auf 4 setzen
+set sw=4
+set ts=4
+set sts=4
+
+" jj -> Esc in insert mode
+inoremap jj <Esc>
+
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+
+noremap <F2> o<Esc>O
+noremap <F7> :tabp<Enter>
+noremap <F8> :tabn<Enter>
+
+filetype plugin on
+let g:clang_user_options='|| exit 0'
+let g:clang_complete_auto=1
+let g:clang_complete_copen=1
+let g:clang_use_library=1
+let g:clang_library_path="/usr/lib/llvm/"
+
+set expandtab
+
+" Haskell
+autocmd FileType haskell set tabstop=2
+autocmd FileType haskell set shiftwidth=2
+autocmd FileType haskell noremap <leader>bb :w<cr>:!cabal install<cr>
+autocmd Filetype haskell noremap <leader>rr :!<C-r>=shellescape(fnamemodify('.', ':p:h:t'), 1)<cr><cr>
+
+" C++
+autocmd FileType cpp noremap <leader>bb :w<cr>:!cmake . && make -j5<cr>
+autocmd FileType cpp noremap <leader>sw :vimgrep /<cword>/gj src/**/*<cr>:cw<cr>
+
+" Scala
+autocmd FileType scala noremap <leader>bb :w<cr>:!scalac %<cr>
+autocmd FileType scala noremap <leader>rr :w<cr>:!scala <cword><cr>
+
+" Latex
+autocmd FileType tex TTarget pdf
+
+set t_Co=256
+set background=dark
+colorscheme darkocean
+set completeopt=longest,menuone
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
