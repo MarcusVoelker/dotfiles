@@ -92,7 +92,7 @@ noremap <leader>to :tabonly<cr>
 noremap <leader>tc :tabclose<cr>
 noremap <leader>tm :tabmove
 noremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-noremap <leader>br <leader>bb<leader>rr
+map <leader>br <leader>bb<leader>rr
 
 " Syntax highlighting aktivieren
 syntax on
@@ -137,6 +137,7 @@ autocmd FileType scala noremap <leader>rr :w<cr>:!scala <cword><cr>
 
 " Latex
 autocmd FileType tex TTarget pdf
+autocmd FileType tex map <leader>bb <leader>ll
 
 set t_Co=256
 set background=dark
