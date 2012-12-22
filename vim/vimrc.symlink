@@ -139,6 +139,10 @@ autocmd FileType scala noremap <leader>rr :w<cr>:!scala <cword><cr>
 autocmd FileType tex TTarget pdf
 autocmd FileType tex map <leader>bb <leader>ll
 
+" Dot
+autocmd FileType dot map <leader>bb :!dot -Tps % -o <C-r>=shellescape(fnamemodify(expand('%'),':r'), 1)<cr>.ps<cr>
+autocmd FileType dot map <leader>rr :!evince <C-r>=shellescape(fnamemodify(expand('%'),':r'), 1)<cr>.ps<cr>
+
 set t_Co=256
 set background=dark
 colorscheme darkocean
