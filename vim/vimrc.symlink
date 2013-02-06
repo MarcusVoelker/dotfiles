@@ -113,11 +113,11 @@ noremap <F7> :tabp<Enter>
 noremap <F8> :tabn<Enter>
 
 filetype plugin on
-let g:clang_user_options='|| exit 0'
-let g:clang_complete_auto=1
-let g:clang_complete_copen=1
-let g:clang_use_library=1
-let g:clang_library_path="/usr/lib/llvm/"
+"let g:clang_user_options='|| exit 0'
+"let g:clang_complete_auto=1
+"let g:clang_complete_copen=1
+"let g:clang_use_library=1
+"let g:clang_library_path="/usr/lib/llvm/"
 
 set expandtab
 
@@ -126,6 +126,7 @@ autocmd FileType haskell set tabstop=2
 autocmd FileType haskell set shiftwidth=2
 autocmd FileType haskell noremap <leader>bb :w<cr>:!cabal install<cr>
 autocmd Filetype haskell noremap <leader>rr :!<C-r>=shellescape(fnamemodify('.', ':p:h:t'), 1)<cr><cr>
+autocmd Filetype haskell noremap <leader>tt :!ghci %<cr>
 
 " C++
 autocmd FileType cpp noremap <leader>bb :w<cr>:!cmake . && make -j5<cr>
@@ -138,6 +139,7 @@ autocmd FileType scala noremap <leader>rr :w<cr>:!scala <cword><cr>
 " Latex
 autocmd FileType tex TTarget pdf
 autocmd FileType tex map <leader>bb :w<cr><leader>ll
+autocmd FileType tex map <leader>rr :!evince <C-r>=shellescape(fnamemodify(expand('%'),':r'), 1)<cr>.pdf<cr>
 
 " Dot
 autocmd FileType dot map <leader>bb :w<cr>:!dot -Tps % -o <C-r>=shellescape(fnamemodify(expand('%'),':r'), 1)<cr>.ps<cr>
@@ -150,3 +152,11 @@ set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+
+autocmd VimEnter * call StartUp()
