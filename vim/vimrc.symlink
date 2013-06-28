@@ -120,7 +120,10 @@ filetype plugin on
 "let g:clang_library_path="/usr/lib/llvm/"
 
 set expandtab
+au BufRead,BufNewFile *.tw     setfiletype twee
 
+" Bash
+autocmd FileType sh noremap <leader>rr :w<cr>:!/bin/bash %<cr>
 " Haskell
 autocmd FileType haskell set tabstop=2
 autocmd FileType haskell set shiftwidth=2
@@ -144,6 +147,9 @@ autocmd FileType tex map <leader>rr :!evince <C-r>=shellescape(fnamemodify(expan
 " Dot
 autocmd FileType dot map <leader>bb :w<cr>:!dot -Tps % -o <C-r>=shellescape(fnamemodify(expand('%'),':r'), 1)<cr>.ps<cr>
 autocmd FileType dot map <leader>rr :!evince <C-r>=shellescape(fnamemodify(expand('%'),':r'), 1)<cr>.ps<cr>
+
+" Twee
+autocmd FileType twee map <leader>bb :w<cr>:!make<cr>
 
 set t_Co=256
 set background=dark
