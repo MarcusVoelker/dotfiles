@@ -151,6 +151,9 @@ autocmd FileType dot map <leader>rr :!evince <C-r>=shellescape(fnamemodify(expan
 " Twee
 autocmd FileType twee map <leader>bb :w<cr>:!make<cr>
 
+" ASP
+autocmd BufRead,BufNewFile *.lp       set filetype=asp
+
 set t_Co=256
 set background=dark
 colorscheme darkocean
